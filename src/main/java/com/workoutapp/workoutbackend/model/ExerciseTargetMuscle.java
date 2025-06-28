@@ -2,6 +2,8 @@ package com.workoutapp.workoutbackend.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "exercise_target_muscle", uniqueConstraints = @UniqueConstraint(columnNames = {"exercise_id", "muscle_id"}))
 public class ExerciseTargetMuscle {
@@ -55,5 +57,17 @@ public class ExerciseTargetMuscle {
 
     public void setMuscle(Muscle muscle) {
         this.muscle = muscle;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ExerciseTargetMuscle that = (ExerciseTargetMuscle) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

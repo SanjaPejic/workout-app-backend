@@ -2,6 +2,8 @@ package com.workoutapp.workoutbackend.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "how_to_step", uniqueConstraints = @UniqueConstraint(columnNames = {"exercise_id","step_number"}))
 public class HowToStep {
@@ -54,5 +56,17 @@ public class HowToStep {
 
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        HowToStep howToStep = (HowToStep) o;
+        return Objects.equals(id, howToStep.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
