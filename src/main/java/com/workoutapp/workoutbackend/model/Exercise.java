@@ -14,16 +14,16 @@ public class Exercise {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable=false, unique=true, length = 255)
+    @Column(name = "name", nullable=false, unique=true)
     private String name;
 
-    @Column(name = "imageURL", nullable = false, unique = true)
+    @Column(name = "image_url", nullable = false, unique = true)
     private String imageURL;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "videoURL", nullable = false, unique = true)
+    @Column(name = "video_url", nullable = false, unique = true)
     private String videoURL;
 
     @OneToMany(
@@ -32,7 +32,7 @@ public class Exercise {
             orphanRemoval = true
     )
     @OrderBy("stepNumber ASC")
-    private List<HowToSteps> howToSteps = new ArrayList<>();
+    private List<HowToStep> howToSteps = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "exercise",
@@ -40,6 +40,16 @@ public class Exercise {
             orphanRemoval = true
     )
     private List<ExerciseTargetMuscle> exerciseTargetMuscles = new ArrayList<>();
+
+    public void addStep(HowToStep step){
+        howToSteps.add(step);
+        step.setExercise(this);
+    }
+
+    public void removeStep(HowToStep step){
+        howToSteps.remove(step);
+        step.setExercise(null);
+    }
 
     public Exercise() {
     }
@@ -83,4 +93,8 @@ public class Exercise {
     public void setVideoURL(String videoURL) {
         this.videoURL = videoURL;
     }
+
+    public List<HowToStep> getHowToSteps() { return howToSteps; }
+
+    public List<ExerciseTargetMuscle> getExerciseTargetMuscles() { return exerciseTargetMuscles; }
 }

@@ -3,8 +3,8 @@ package com.workoutapp.workoutbackend.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "how_to_Steps")
-public class HowToSteps {
+@Table(name = "how_to_step", uniqueConstraints = @UniqueConstraint(columnNames = {"exercise_id","step_number"}))
+public class HowToStep {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,14 +14,14 @@ public class HowToSteps {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @Column(name = "step_number", nullable = false, unique = true)
+    @Column(name = "step_number", nullable = false)
     private int stepNumber;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    public HowToSteps() {
+    public HowToStep() {
     }
 
     public Long getId() {

@@ -24,7 +24,6 @@ public class Muscle {
     )
     private List<ExerciseTargetMuscle> exerciseTargetMuscles = new ArrayList<>();
 
-
     public Muscle() {}
 
     public String getName() {
