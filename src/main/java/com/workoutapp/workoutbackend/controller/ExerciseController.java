@@ -1,5 +1,7 @@
 package com.workoutapp.workoutbackend.controller;
 
+import com.workoutapp.workoutbackend.dto.ExerciseDto;
+import com.workoutapp.workoutbackend.mappers.ExerciseMapper;
 import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.service.ExerciseService;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +20,15 @@ public class ExerciseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Exercise>> getAllExercises(){
+    public ResponseEntity<List<ExerciseDto>> getAllExercises(){
         List<Exercise> allExercises = this.exerciseService.getAllExercises();
-        return ResponseEntity.status(200).body(allExercises);
+        return ResponseEntity.status(200).body(ExerciseMapper.toExerciseDtoList(allExercises));
     }
 
     @GetMapping("/{exerciseId}")
-    public ResponseEntity<Exercise> getExercise(@PathVariable Long exerciseId){
+    public ResponseEntity<ExerciseDto> getExercise(@PathVariable Long exerciseId){
         Exercise exercise = this.exerciseService.getExerciseById(exerciseId);
-        return ResponseEntity.status(200).body(exercise);
+        return ResponseEntity.status(200).body(ExerciseMapper.toExerciseDto(exercise));
     }
 
     @PostMapping
