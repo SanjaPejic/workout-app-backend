@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "exercise")
@@ -97,4 +98,16 @@ public class Exercise {
     public List<HowToStep> getHowToSteps() { return howToSteps; }
 
     public List<ExerciseTargetMuscle> getExerciseTargetMuscles() { return exerciseTargetMuscles; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Exercise exercise = (Exercise) o;
+        return Objects.equals(id, exercise.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
