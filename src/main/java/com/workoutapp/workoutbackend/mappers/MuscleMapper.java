@@ -2,12 +2,10 @@ package com.workoutapp.workoutbackend.mappers;
 
 import com.workoutapp.workoutbackend.dto.MuscleDto;
 import com.workoutapp.workoutbackend.dto.TargetMuscleDto;
-import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.model.ExerciseTargetMuscle;
 import com.workoutapp.workoutbackend.model.Muscle;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MuscleMapper {
 
@@ -21,6 +19,10 @@ public class MuscleMapper {
 
     public static List<TargetMuscleDto> toTargetMuscleDtoList (List<ExerciseTargetMuscle> targetMuscles){
         return targetMuscles.stream().map(MuscleMapper::toTargetMuscleDto).toList();
+    }
+
+    public static List<MuscleDto> toMuscleDtoList (List<Muscle> muscles){
+        return muscles.stream().map(MuscleMapper::toMuscleDto).toList();
     }
 
 }

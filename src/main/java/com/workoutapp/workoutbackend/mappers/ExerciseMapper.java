@@ -4,7 +4,6 @@ import com.workoutapp.workoutbackend.dto.ExerciseDto;
 import com.workoutapp.workoutbackend.dto.TargetMuscleDto;
 import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.model.HowToStep;
-import com.workoutapp.workoutbackend.model.Muscle;
 
 import java.util.List;
 
