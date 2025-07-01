@@ -12,4 +12,9 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(404).body(ex.getMessage());
   }
 
+  @ExceptionHandler(WorkoutNotFoundException.class)
+  public ResponseEntity<String> handleWorkoutNotFoundException(WorkoutNotFoundException ex) {
+    return ResponseEntity.status(404).body(ex.getMessage());
+  }
+
 }
