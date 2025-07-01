@@ -1,9 +1,9 @@
 package com.workoutapp.workoutbackend.repository;
 
-import com.workoutapp.workoutbackend.model.Muscle;
+import com.workoutapp.workoutbackend.model.Workout;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MuscleRepository extends JpaRepository<Muscle, Long> {
+public interface WorkoutRepository extends JpaRepository<Workout, Long> {
 }
