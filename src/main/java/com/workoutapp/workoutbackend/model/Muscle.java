@@ -18,12 +18,11 @@ public class Muscle {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(
-            mappedBy = "muscle",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "muscle", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseTargetMuscle> exerciseTargetMuscles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "muscle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Injury> injuries = new ArrayList<>();
 
     public Muscle() {}
 
