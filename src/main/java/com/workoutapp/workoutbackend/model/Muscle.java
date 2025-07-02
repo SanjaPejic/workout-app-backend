@@ -21,9 +21,6 @@ public class Muscle {
     @OneToMany(mappedBy = "muscle", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseTargetMuscle> exerciseTargetMuscles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "muscle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Injury> injuries = new ArrayList<>();
-
     public Muscle() {}
 
     public String getName() {

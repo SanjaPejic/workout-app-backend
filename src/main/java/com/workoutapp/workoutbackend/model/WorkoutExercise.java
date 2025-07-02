@@ -22,7 +22,7 @@ public class WorkoutExercise {
     @Column(name = "kilos", nullable = false)
     private float kilos;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
 

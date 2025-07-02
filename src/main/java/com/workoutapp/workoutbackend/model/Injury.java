@@ -16,7 +16,7 @@ public class Injury {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "muscle_id", nullable = false)
     private Muscle muscle;
 

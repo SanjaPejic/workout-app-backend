@@ -32,8 +32,8 @@ public class ExerciseController {
     }
 
     @PostMapping
-    public ResponseEntity<Exercise> addExercise(@RequestBody Exercise exercise){
-        Exercise savedExercise = this.exerciseService.addExercise(exercise);
+    public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise){
+        Exercise savedExercise = this.exerciseService.createExercise(exercise);
         return ResponseEntity.status(201).body(savedExercise);
     }
 

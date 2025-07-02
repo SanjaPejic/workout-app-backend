@@ -42,9 +42,6 @@ public class Exercise {
     )
     private List<ExerciseTargetMuscle> exerciseTargetMuscles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkoutExercise> workoutExercises = new ArrayList<>();
-
     public void addStep(HowToStep step){
         howToSteps.add(step);
         step.setExercise(this);
