@@ -23,6 +23,7 @@ public class WorkoutController {
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDtoList(allWorkouts));
     }
 
+    // !probably will have to change it to getWorkoutByUserId
     @GetMapping("{workoutId}")
     public ResponseEntity<WorkoutDto> getWorkoutById (@PathVariable("workoutId") Long workoutId) {
         Workout workout = this.workoutService.getWorkoutById(workoutId);

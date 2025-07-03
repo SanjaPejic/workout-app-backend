@@ -44,18 +44,18 @@ public class WorkoutService {
             }
         }
 
-        //use for update workout and not for create workout
-//        for (WorkoutExerciseDto weDto : workoutDto.getWorkoutExercises()) {
-//            if (!this.workoutExerciseService.existsById(weDto.getId())) {
-//                throw new AppException("Exercise not found", 404);
-//            }
-//        }
-
         Workout workout = WorkoutMapper.toWorkoutModel(workoutDto);
 
         workout.setUser(userService.getUserById(userId));
 
         return this.workoutRepository.save(workout);
     }
+
+    //use for update workout and not for create workout
+//        for (WorkoutExerciseDto weDto : workoutDto.getWorkoutExercises()) {
+//            if (!this.workoutExerciseService.existsById(weDto.getId())) {
+//                throw new AppException("Exercise not found", 404);
+//            }
+//        }
 
 }
