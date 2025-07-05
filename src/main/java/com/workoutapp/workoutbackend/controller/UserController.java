@@ -18,10 +18,9 @@ public class UserController {
     }
 
     @GetMapping("{username}")
-    public ResponseEntity<Long> getUser(@PathVariable String username) {
+    public ResponseEntity<UserDto> getUser(@PathVariable String username) {
         User user = this.userService.getUserByUsername(username);
-        UserDto userDto = UserMapper.toUserDto(user);
-        return ResponseEntity.status(200).body(userDto.getId());
+        return ResponseEntity.status(200).body(UserMapper.toUserDto(user));
     }
 
     // maybe add @Valid, and then also add @NotBlank(message = "Username is required") in UserDto
