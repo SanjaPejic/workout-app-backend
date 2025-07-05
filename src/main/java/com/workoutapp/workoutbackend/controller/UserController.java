@@ -5,10 +5,7 @@ import com.workoutapp.workoutbackend.mappers.UserMapper;
 import com.workoutapp.workoutbackend.model.User;
 import com.workoutapp.workoutbackend.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -22,8 +19,15 @@ public class UserController {
 
     @GetMapping("{username}")
     public ResponseEntity<Long> getUser(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
+        User user = this.userService.getUserByUsername(username);
         UserDto userDto = UserMapper.toUserDto(user);
         return ResponseEntity.status(200).body(userDto.getId());
+    }
+
+    // maybe add @Valid, and then also add @NotBlank(message = "Username is required") in UserDto
+    @PostMapping
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        User newUser = this.userService.createUser(userDto);
+        return ResponseEntity.status(201).body(UserMapper.toUserDto(newUser));
     }
 }

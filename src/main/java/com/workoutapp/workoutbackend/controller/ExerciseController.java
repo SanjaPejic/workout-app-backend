@@ -31,6 +31,7 @@ public class ExerciseController {
         return ResponseEntity.status(200).body(ExerciseMapper.toExerciseDto(exercise));
     }
 
+    // used only for the development process
     @PostMapping
     public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise){
         Exercise savedExercise = this.exerciseService.createExercise(exercise);
@@ -38,7 +39,7 @@ public class ExerciseController {
     }
 
     @DeleteMapping("/{exerciseId}")
-    public ResponseEntity<Exercise> deleteExercise(@PathVariable Long exerciseId){
+    public ResponseEntity<Void> deleteExercise(@PathVariable Long exerciseId){
         this.exerciseService.deleteById(exerciseId);
         return ResponseEntity.noContent().build();
     }

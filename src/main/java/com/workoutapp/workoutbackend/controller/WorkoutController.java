@@ -2,6 +2,7 @@ package com.workoutapp.workoutbackend.controller;
 
 import com.workoutapp.workoutbackend.dto.WorkoutDto;
 import com.workoutapp.workoutbackend.mappers.WorkoutMapper;
+import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.model.Workout;
 import com.workoutapp.workoutbackend.service.WorkoutService;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,16 @@ public class WorkoutController {
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDtoList(allWorkouts));
     }
 
-    // !probably will have to change it to getWorkoutByUserId
+    // get all workouts for one user
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<WorkoutDto>> getUserWorkouts (@PathVariable Long userId) {
+        List<Workout> userWorkouts = this.workoutService.getUserWorkouts(userId);
+        return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDtoList(userWorkouts));
+    }
+
+    // you probably don't need it at all
     @GetMapping("{workoutId}")
-    public ResponseEntity<WorkoutDto> getWorkoutById (@PathVariable("workoutId") Long workoutId) {
+    public ResponseEntity<WorkoutDto> getWorkoutById (@PathVariable Long workoutId) {
         Workout workout = this.workoutService.getWorkoutById(workoutId);
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDto(workout));
     }
@@ -33,16 +41,20 @@ public class WorkoutController {
     // decide if you want to add request body @Valid
     @PostMapping
     public ResponseEntity<WorkoutDto> createWorkout(@RequestBody WorkoutDto workoutDto) {
-        Workout savedWorkout = workoutService.createWorkout(workoutDto);
-        Workout fullSavedWorkout = workoutService.getWorkoutById(savedWorkout.getId());
-        return ResponseEntity.status(201).body(WorkoutMapper.toWorkoutDto(fullSavedWorkout));
+        Workout savedWorkout = this.workoutService.createWorkout(workoutDto);
+        return ResponseEntity.status(201).body(WorkoutMapper.toWorkoutDto(savedWorkout));
     }
 
-//    @PutMapping("{workoutId}")
-//    public ResponseEntity<Workout> updateWorkout(@PathVariable("workoutId") Long workoutId, @RequestBody Workout workoutDetails) {
-//        Workout updatedWorkout = workoutService.updateWorkout(workoutId, workoutDetails);
-//        return ResponseEntity.status(200).body(updatedWorkout);
-//    }
+    @PutMapping("{workoutId}")
+    public ResponseEntity<WorkoutDto> updateWorkout(@PathVariable Long workoutId, @RequestBody WorkoutDto workoutDto) {
+        Workout updatedWorkout = this.workoutService.updateWorkout(workoutId, workoutDto);
+        return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDto(updatedWorkout));
+    }
 
+    @DeleteMapping("{workoutId}")
+    public ResponseEntity<Void> deleteExercise(@PathVariable Long workoutId){
+        this.workoutService.deleteById(workoutId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
