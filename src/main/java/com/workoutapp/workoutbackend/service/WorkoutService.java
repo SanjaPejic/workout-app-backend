@@ -31,7 +31,7 @@ public class WorkoutService {
     }
 
     public List<Workout> getUserWorkouts(Long userId) {
-        if (!userService.existsById(userId)) {
+        if (!this.userService.existsById(userId)) {
             throw new AppException("User not found with id: " + userId, 404);
         }
         return this.workoutRepository.findAllByUserId(userId);

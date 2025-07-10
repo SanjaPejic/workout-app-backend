@@ -19,5 +19,9 @@ public class MuscleService {
         return this.muscleRepository.findAll();
     }
 
+    public Boolean existsById(Long id){
+        return this.muscleRepository.existsById(id);
+    }
+
 
 }
