@@ -42,7 +42,7 @@ public class WorkoutService {
     }
 
     public Workout createWorkout(WorkoutDto workoutDto){
-        Long userId = workoutDto.getUser().getId();
+        Long userId = workoutDto.getId();
         if(!this.userService.existsById(userId)){
             throw new AppException("User not found with id: " + userId, 404);
         }

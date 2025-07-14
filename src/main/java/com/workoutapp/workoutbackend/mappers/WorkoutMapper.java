@@ -14,8 +14,8 @@ public class WorkoutMapper {
 
     public static WorkoutDto toWorkoutDto(Workout workout) {
         List<WorkoutExerciseDto> workoutExercises = ExerciseMapper.toWorkoutExerciseDtoList(workout.getWorkoutExercises());
-        UserDto userDto = UserMapper.toUserDto(workout.getUser());
-        return new WorkoutDto(workout.getId(), workout.getName(), workout.getDate(), workoutExercises, userDto);
+        Long userId = workout.getUser().getId();
+        return new WorkoutDto(workout.getId(), workout.getName(), workout.getDate(), workoutExercises, userId);
     }
 
     public static List<WorkoutDto> toWorkoutDtoList(List<Workout> workouts) {

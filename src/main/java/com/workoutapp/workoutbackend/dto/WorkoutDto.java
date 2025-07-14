@@ -9,14 +9,14 @@ public class WorkoutDto {
     private String name;
     private LocalDate date;
     private List<WorkoutExerciseDto> workoutExercises;
-    private UserDto user;
+    private Long userId;
 
-    public WorkoutDto(Long id, String name, LocalDate date, List<WorkoutExerciseDto> workoutExercises, UserDto user) {
+    public WorkoutDto(Long id, String name, LocalDate date, List<WorkoutExerciseDto> workoutExercises, Long userId) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.workoutExercises = workoutExercises;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -51,11 +51,11 @@ public class WorkoutDto {
         this.workoutExercises = workoutExercises;
     }
 
-    public UserDto getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setUser(Long userId) {
+        this.userId = userId;
     }
 }
