@@ -45,9 +45,9 @@ public class WorkoutController {
         return ResponseEntity.status(201).body(WorkoutMapper.toWorkoutDto(savedWorkout));
     }
 
-    @PutMapping("{workoutId}")
-    public ResponseEntity<WorkoutDto> updateWorkout(@PathVariable Long workoutId, @RequestBody WorkoutDto workoutDto) {
-        Workout updatedWorkout = this.workoutService.updateWorkout(workoutId, workoutDto);
+    @PutMapping
+    public ResponseEntity<WorkoutDto> updateWorkout(@RequestBody WorkoutDto workoutDto) {
+        Workout updatedWorkout = this.workoutService.updateWorkout(workoutDto);
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDto(updatedWorkout));
     }
 

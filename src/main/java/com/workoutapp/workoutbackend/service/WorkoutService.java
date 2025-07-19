@@ -5,12 +5,15 @@ import com.workoutapp.workoutbackend.dto.WorkoutExerciseDto;
 import com.workoutapp.workoutbackend.exception.AppException;
 import com.workoutapp.workoutbackend.mappers.ExerciseMapper;
 import com.workoutapp.workoutbackend.mappers.WorkoutMapper;
+import com.workoutapp.workoutbackend.model.User;
 import com.workoutapp.workoutbackend.model.Workout;
 import com.workoutapp.workoutbackend.model.WorkoutExercise;
+import com.workoutapp.workoutbackend.repository.WorkoutExerciseRepository;
 import com.workoutapp.workoutbackend.repository.WorkoutRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,11 +22,13 @@ public class WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final UserService userService;
     private final ExerciseService exerciseService;
+    private final WorkoutExerciseRepository workoutExerciseRepository;
 
-    public WorkoutService (WorkoutRepository workoutRepository, UserService userService, ExerciseService exerciseService) {
+    public WorkoutService (WorkoutRepository workoutRepository, UserService userService, ExerciseService exerciseService, WorkoutExerciseRepository workoutExerciseRepository) {
         this.workoutRepository = workoutRepository;
         this.userService = userService;
         this.exerciseService = exerciseService;
+        this.workoutExerciseRepository = workoutExerciseRepository;
     }
 
     public List<Workout> getAllWorkouts (){
@@ -63,13 +68,9 @@ public class WorkoutService {
         return this.workoutRepository.save(workout);
     }
 
-    public Workout updateWorkout(Long id, WorkoutDto workoutDto) {
-        if (workoutDto.getId() != null && !workoutDto.getId().equals(id)) {
-            throw new AppException("ID in path and body do not match", 400);
-        }
-
+    public Workout updateWorkout(WorkoutDto workoutDto) {
         // get the old workout
-        Workout workout = workoutRepository.findById(id).orElseThrow(() -> new AppException("Workout not found with id: " + id, 404));
+        Workout workout = workoutRepository.findById(workoutDto.getId()).orElseThrow(() -> new AppException("Workout not found with id: " + workoutDto.getId(), 404));
 
         for (WorkoutExerciseDto weDto : workoutDto.getWorkoutExercises()) {
             Long exerciseId = weDto.getExercise().getId();
@@ -78,19 +79,27 @@ public class WorkoutService {
             }
         }
 
-        // update the workout
-        if (workoutDto.getName() != null) {
-            workout.setName(workoutDto.getName());
+        User user = userService.getUserById(workoutDto.getUserId());
+        if (user == null) {
+            throw new AppException("User not found with id: " + workoutDto.getUserId(), 404);
         }
+
+        if (!workoutDto.getName().equals(workout.getName())) {
+            throw new AppException("Workout name does not match", 400);
+        }
+
+        workout.getWorkoutExercises().clear();
+        workout.setUser(user);
 
         workout.setDate(LocalDate.now());
 
-        List<WorkoutExercise> newExercises = ExerciseMapper.toWorkoutExerciseModelList(workoutDto.getWorkoutExercises());
+        workout = workoutRepository.save(workout);
 
-        workout.setWorkoutExercises(newExercises);
+        ArrayList<WorkoutExercise> newWorkoutExercises = ExerciseMapper.toWorkoutExerciseModelList(workoutDto.getWorkoutExercises());
 
-        for (WorkoutExercise we : newExercises) {
+        for (WorkoutExercise we : newWorkoutExercises) {
             we.setWorkout(workout);
+            workout.getWorkoutExercises().add(we);
         }
 
         return workoutRepository.save(workout);

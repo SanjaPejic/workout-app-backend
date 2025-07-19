@@ -6,7 +6,10 @@ import com.workoutapp.workoutbackend.dto.WorkoutExerciseDto;
 import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.model.HowToStep;
 import com.workoutapp.workoutbackend.model.WorkoutExercise;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExerciseMapper {
 
@@ -41,8 +44,8 @@ public class ExerciseMapper {
         return we;
     }
 
-    public static List<WorkoutExercise> toWorkoutExerciseModelList(List<WorkoutExerciseDto> dtos) {
-        return dtos.stream().map(ExerciseMapper::toWorkoutExerciseModel).toList();
+    public static ArrayList<WorkoutExercise> toWorkoutExerciseModelList(List<WorkoutExerciseDto> dtos) {
+        return dtos.stream().map(ExerciseMapper::toWorkoutExerciseModel).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }
