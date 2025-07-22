@@ -6,7 +6,8 @@ import com.workoutapp.workoutbackend.dto.WorkoutExerciseDto;
 import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.model.HowToStep;
 import com.workoutapp.workoutbackend.model.WorkoutExercise;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +22,14 @@ public class ExerciseMapper {
         return new ExerciseDto(exercise.getId(), exercise.getName(), exercise.getImageURL(), exercise.getDescription(), exercise.getVideoURL(), steps, muscles);
     }
 
-    public static List<ExerciseDto> toExerciseDtoList(List<Exercise> exercises) {
-        return exercises.stream().map(ExerciseMapper::toExerciseDto).toList();
+    // used for the old code before pageable
+//    public static List<ExerciseDto> toExerciseDtoList(List<Exercise> exercises) {
+//        return exercises.stream().map(ExerciseMapper::toExerciseDto).toList();
+//    }
+
+    public static Page<ExerciseDto> toExerciseDtoPage(Page<Exercise> exercisePage) {
+        List<ExerciseDto> dtos = exercisePage.stream().map(ExerciseMapper::toExerciseDto).toList();
+        return new PageImpl<>(dtos, exercisePage.getPageable(), exercisePage.getTotalElements());
     }
 
     public static WorkoutExerciseDto toWorkoutExerciseDto(WorkoutExercise workoutExercise) {

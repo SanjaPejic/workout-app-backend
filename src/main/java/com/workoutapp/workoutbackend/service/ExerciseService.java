@@ -3,8 +3,9 @@ package com.workoutapp.workoutbackend.service;
 import com.workoutapp.workoutbackend.exception.AppException;
 import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.repository.ExerciseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -16,8 +17,17 @@ public class ExerciseService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    public List<Exercise> getAllExercises(){
-        return this.exerciseRepository.findAll();
+    // old code, before pageable
+//    public List<Exercise> getAllExercises(){
+//        return this.exerciseRepository.findAll();
+//    }
+
+    public Page<Exercise> getAllExercises(Pageable pageable, String searchTerm, List<String> targetMuscNames) {
+        if (targetMuscNames.isEmpty()) {
+            return this.exerciseRepository.findByNameContainingIgnoreCase(searchTerm, pageable);
+        } else {
+            return this.exerciseRepository.findByNameContainingIgnoreCaseAndTargetMusclesIn(searchTerm, targetMuscNames, targetMuscNames.size(), pageable);
+        }
     }
 
     public Exercise getExerciseById(Long id) {

@@ -4,10 +4,13 @@ import com.workoutapp.workoutbackend.dto.ExerciseDto;
 import com.workoutapp.workoutbackend.mappers.ExerciseMapper;
 import com.workoutapp.workoutbackend.model.Exercise;
 import com.workoutapp.workoutbackend.service.ExerciseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/exercises")
@@ -20,9 +23,9 @@ public class ExerciseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ExerciseDto>> getAllExercises(){
-        List<Exercise> allExercises = this.exerciseService.getAllExercises();
-        return ResponseEntity.status(200).body(ExerciseMapper.toExerciseDtoList(allExercises));
+    public ResponseEntity<Page<ExerciseDto>> getAllExercises(Pageable pageable, @RequestParam("searchTerm") Optional<String> searchTerm, @RequestParam(name = "targetMuscles", required = false) List<String> targetMuscNames) {
+        Page<Exercise> allExercises = this.exerciseService.getAllExercises(pageable, searchTerm.orElse(""), targetMuscNames != null ? targetMuscNames : new ArrayList<>());
+        return ResponseEntity.status(200).body(ExerciseMapper.toExerciseDtoPage(allExercises));
     }
 
     @GetMapping("/{exerciseId}")
