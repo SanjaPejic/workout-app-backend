@@ -22,11 +22,6 @@ public class ExerciseMapper {
         return new ExerciseDto(exercise.getId(), exercise.getName(), exercise.getImageURL(), exercise.getDescription(), exercise.getVideoURL(), steps, muscles);
     }
 
-    // used for the old code before pageable
-//    public static List<ExerciseDto> toExerciseDtoList(List<Exercise> exercises) {
-//        return exercises.stream().map(ExerciseMapper::toExerciseDto).toList();
-//    }
-
     public static Page<ExerciseDto> toExerciseDtoPage(Page<Exercise> exercisePage) {
         List<ExerciseDto> dtos = exercisePage.stream().map(ExerciseMapper::toExerciseDto).toList();
         return new PageImpl<>(dtos, exercisePage.getPageable(), exercisePage.getTotalElements());

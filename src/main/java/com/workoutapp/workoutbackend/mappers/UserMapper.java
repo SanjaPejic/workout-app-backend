@@ -12,10 +12,6 @@ public class UserMapper {
     public static User toUserModel(UserDto userDto) {
         User user = new User();
         user.setUserName(userDto.getUsername());
-//        don't need to set them for creation they are null by default
-//        user.setId(userDto.getId());
-//        user.setWorkouts(user.getWorkouts());
-//        user.setInjuries(user.getInjuries());
         return user;
     }
 }

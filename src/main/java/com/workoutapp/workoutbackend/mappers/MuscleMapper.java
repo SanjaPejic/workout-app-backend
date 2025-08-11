@@ -37,10 +37,6 @@ public class MuscleMapper {
     public static Injury toInjuryModel (InjuryDto injuryDto){
         Injury injury = new Injury();
         injury.setId(injuryDto.getId());
-//        User user = new User();
-//        user.setId(injuryDto.getUser().getId());
-//        user.setUserName(injuryDto.getUser().getUsername());
-//        injury.setUser(user);
         Muscle muscle = new Muscle();
         muscle.setId(injuryDto.getMuscle().getId());
         muscle.setName(injuryDto.getMuscle().getName());

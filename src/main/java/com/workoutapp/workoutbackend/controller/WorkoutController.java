@@ -24,21 +24,18 @@ public class WorkoutController {
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDtoList(allWorkouts));
     }
 
-    // get all workouts for one user
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<WorkoutDto>> getUserWorkouts (@PathVariable Long userId) {
         List<Workout> userWorkouts = this.workoutService.getUserWorkouts(userId);
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDtoList(userWorkouts));
     }
 
-    // you probably don't need it at all
     @GetMapping("{workoutId}")
     public ResponseEntity<WorkoutDto> getWorkoutById (@PathVariable Long workoutId) {
         Workout workout = this.workoutService.getWorkoutById(workoutId);
         return ResponseEntity.status(200).body(WorkoutMapper.toWorkoutDto(workout));
     }
 
-    // decide if you want to add request body @Valid
     @PostMapping
     public ResponseEntity<WorkoutDto> createWorkout(@RequestBody WorkoutDto workoutDto) {
         Workout savedWorkout = this.workoutService.createWorkout(workoutDto);

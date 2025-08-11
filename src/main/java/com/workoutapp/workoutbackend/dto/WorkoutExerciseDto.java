@@ -6,10 +6,8 @@ public class WorkoutExerciseDto {
 
     private Long id;
     private ExerciseDto exercise;
-    // add annotation for int values
     private int sets;
     private int reps;
-    // round to one decimal in service
     private float kilos;
 
     public WorkoutExerciseDto(Long id, ExerciseDto exercise, int sets, int reps, float kilos) {

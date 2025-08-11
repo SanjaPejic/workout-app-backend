@@ -17,11 +17,6 @@ public class ExerciseService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    // old code, before pageable
-//    public List<Exercise> getAllExercises(){
-//        return this.exerciseRepository.findAll();
-//    }
-
     public Page<Exercise> getAllExercises(Pageable pageable, String searchTerm, List<String> targetMuscNames) {
         if (targetMuscNames.isEmpty()) {
             return this.exerciseRepository.findByNameContainingIgnoreCase(searchTerm, pageable);

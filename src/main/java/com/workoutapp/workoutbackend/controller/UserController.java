@@ -23,7 +23,6 @@ public class UserController {
         return ResponseEntity.status(200).body(UserMapper.toUserDto(user));
     }
 
-    // maybe add @Valid, and then also add @NotBlank(message = "Username is required") in UserDto
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         User newUser = this.userService.createUser(userDto);
