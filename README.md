@@ -5,7 +5,7 @@ and the three-tier architecture and REST APIs, and incorporating MySQL database 
 
 ## Live Application
 
-The fully deployed application, Workout Blocks, is available at: https://workout-app-pink.vercel.app/
+Workout Blocks was deployed on Vercel (frontend) and AWS (backend and database). The AWS free trial period has expired, so the live deployment is no longer available. A demo video is provided to showcase the application in operation: https://youtu.be/3DXnyEJHyLc
 
 ## Backend Source Code
 
